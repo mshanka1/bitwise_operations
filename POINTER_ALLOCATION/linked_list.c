@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -37,21 +38,34 @@ int main()
         }
     }
     //display list
-    ptr_node=NULL;//clear the temporary address
     ptr_node=ptr_node_start;//assign temporary address to head address
-    for(count=0;count<NO_OF_NODES;count++)
+    count=0;
+    while(ptr_node!=NULL)
     {
-        printf("node %d=%d\n",count,ptr_node->node_num);
+        printf("node address (%p): %d=%d\n",ptr_node,count,ptr_node->node_num);
+        count++;
         ptr_node=ptr_node->next_node;//assgin temporary node to temporary nodes next node address
     }
-    //free the node
-    ptr_node=NULL;
-    ptr_node=ptr_node_start;
-    for(count=0;count<NO_OF_NODES;count++)
+    ptr_node=ptr_node_start;//assign temporary address to head address
+    count=0;
+    while(ptr_node!=NULL)
     {
+        ptr_node_curr=ptr_node->next_node;
         free(ptr_node);
-        ptr_node=ptr_node->next_node;
+        printf("node address (%p):Freed and added %d=%d\n",ptr_node,count,ptr_node->node_num);//value displayed will be junk
+        ptr_node=NULL;
+        count++;
+        ptr_node=ptr_node_curr;
+        printf("Freed node=%d\n",count);
     }
-    ptr_node=NULL;
+    ptr_node=ptr_node_start;//assign temporary address to head address
+    count=0;
+    while(ptr_node!=NULL)
+    {
+        printf("node address (%p):after Freed %d=%d\n",ptr_node,count,ptr_node->node_num);
+        count++;
+        ptr_node=ptr_node->next_node;//assgin temporary node to temporary nodes next node address
+    }
+    printf("Ending...\n");
     return 0;
 }
